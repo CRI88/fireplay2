@@ -53,6 +53,12 @@ export default function Header() {
                         Carrito
                     </Link>
                     <Link
+                        href="/contact"
+                        className="text-lg font-medium hover:text-yellow-400 transform hover:scale-105 transition duration-300 ease-in-out"
+                    >
+                        Contacto
+                    </Link>
+                    <Link
                         href="/dashboard"
 
                         className="text-lg font-medium hover:text-yellow-400 transform hover:scale-105 transition duration-300 ease-in-out"

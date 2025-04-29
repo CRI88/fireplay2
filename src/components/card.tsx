@@ -1,25 +1,42 @@
-import Link from "next/link";
-import type { Game } from "../types/games.types";
+'use client';
 
-export default function GameCard({ game }: { game: Game }) {
-  const stars = Math.round(game.rating);
+import { useEffect, useState } from 'react';
+import { Game } from '@/types/games.types';
+import { addToFavorites, removeFromFavorites } from '@/lib/firebaseFunctions';
+import { Heart } from 'lucide-react';
+import Link from 'next/link';
+
+export default function GameCard({ game, isFavorite: initialFavorite }: { game: Game; isFavorite: boolean }) {
+  const [isFavorite, setIsFavorite] = useState(initialFavorite);
+
+  const toggleFavorite = async (e: React.MouseEvent) => {
+    e.preventDefault(); // evitar navegación
+    if (isFavorite) {
+      await removeFromFavorites(game.id.toString());
+      setIsFavorite(false);
+    } else {
+      await addToFavorites(game);
+      setIsFavorite(true);
+    }
+  };
 
   return (
-      <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4">
+    <div className="relative bg-white rounded-xl shadow hover:shadow-lg transition p-4">
+      <Link href={`/game/${game.slug}`} className="block">
         <img
-          src={game.background_image}
+          src={game.background_image || '/placeholder.jpg'}
           alt={game.name}
-          className="w-full h-48 object-cover rounded-lg mb-4"
+          className="w-full h-48 object-cover rounded-md mb-4"
         />
-        <h3 className="text-lg font-semibold mb-2">{game.name}</h3>
-        <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <div className="flex text-yellow-400">
-            {Array.from({ length: 5 }, (_, i) => (
-              <span key={i}>{i < stars ? '★' : '☆'}</span>
-            ))}
-          </div>
-          <span className="text-gray-500">({game.rating.toFixed(1)})</span>
-        </div>
-      </div>
+        <h3 className="text-lg font-semibold">{game.name}</h3>
+      </Link>
+      <button
+        onClick={toggleFavorite}
+        className="absolute top-3 right-3 p-2 bg-white rounded-full shadow"
+        title={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'}
+      >
+        <Heart size={24} className={isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-400'} />
+      </button>
+    </div>
   );
 }

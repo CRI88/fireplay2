@@ -2,34 +2,30 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '@/firebase/firebase';
 
 export const withAuth = (Component: any) => {
   return (props: any) => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const [isMounted, setIsMounted] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-      setIsMounted(true);
-    }, []);
+      const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+        if (!firebaseUser) {
+          router.push('/login');
+        } else {
+          setUser(firebaseUser);
+        }
+        setLoading(false);
+      });
 
-    useEffect(() => {
-      if (isMounted) {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (!user) {
-            router.push('/login');
-          }
-          setLoading(false);
-        });
+      return () => unsubscribe();
+    }, [router]);
 
-        return () => unsubscribe();
-      }
-    }, [router, isMounted]);
+    if (loading) return <div>Loading...</div>;
 
-    if (loading || !isMounted) return <div>Loading...</div>;
-
-    return <Component {...props} />;
+    return <Component {...props} user={user} />;
   };
 };
