@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: ReactNode
     <html lang="es">
       <body className="bg-white text-black">
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

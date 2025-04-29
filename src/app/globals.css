@@ -1,5 +1,6 @@
 /* src/app/globals.css */
 @import "tailwindcss";
+@import 'animate.css';
 @theme {
  --color-primary: #1d4ed8;
  --color-secondary: #9333ea;

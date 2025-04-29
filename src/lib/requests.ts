@@ -11,4 +11,4 @@ export async function getGameDetails(slug: string) {
     const url = `${API_URL}/games/${slug}?key=${API_KEY}`;
     const { data } = await axios.get(url);
     return data;
-   }
+}
