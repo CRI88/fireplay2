@@ -61,5 +61,3 @@ cd fireplay
 npm install
 cp .env.example .env.local # Configura las claves de Firebase aquí
 npm run dev
-
-Abre localhost:3000 en el navegador
