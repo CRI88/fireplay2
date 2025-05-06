@@ -1,5 +1,5 @@
 import { db } from '../firebase/firebase';
-import { collection, getFirestore, doc, getDocs, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getFirestore, doc, getDocs, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { Game } from '@/types/games.types';
 

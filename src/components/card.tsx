@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Game } from '@/types/games.types';
 import { addToFavorites, removeFromFavorites } from '@/lib/firebaseFunctions';
 import { Heart } from 'lucide-react';
