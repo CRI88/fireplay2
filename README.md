@@ -14,10 +14,6 @@ Fireplay es una aplicación web moderna que simula una tienda de videojuegos onl
 - ✅ **Framer Motion** para animaciones
 - ✅ **Vite** como herramienta de desarrollo rápida
 
-## 📷 Capturas
-
-> (Aquí puedes incluir imágenes de diferentes pantallas: landing, login, catálogo, favoritos, carrito, etc.)
-
 ---
 
 ## 📁 Estructura de páginas y funcionalidades
